@@ -46,7 +46,7 @@ public class EventBookingServlet extends HttpServlet {
         String attendeeAddress = req.getRemoteAddr();
         Long numberOfTickets = Long.valueOf(req.getParameter("numberOfTickets"));
 
-        EventBooking booking = eventBookingService.placeBooking(eventName, attendeeName, attendeeAddress, numberOfTickets);
+//        EventBooking booking = eventBookingService.placeBooking(eventName, attendeeName, attendeeAddress, numberOfTickets);
         List<EventBooking> bookings = eventBookingService.listAll();
 
         IWebExchange webExchange = JakartaServletWebApplication
@@ -54,10 +54,10 @@ public class EventBookingServlet extends HttpServlet {
                 .buildExchange(req, resp);
 
         WebContext context = new WebContext(webExchange);
-        context.setVariable("eventName", booking.getEventName());
-        context.setVariable("attendeeName", booking.getAttendeeName());
-        context.setVariable("attendeeAddress", booking.getAttendeeAddress());
-        context.setVariable("numberOfTickets", booking.getNumberOfTickets());
+//        context.setVariable("eventName", booking.getEventName());
+//        context.setVariable("attendeeName", booking.getAttendeeName());
+//        context.setVariable("attendeeAddress", booking.getAttendeeAddress());
+//        context.setVariable("numberOfTickets", booking.getNumberOfTickets());
 
         context.setVariable("bookings",bookings);
 

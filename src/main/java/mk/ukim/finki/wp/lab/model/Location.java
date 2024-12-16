@@ -19,7 +19,7 @@ public class Location {
     private String capacity;
     private String description;
 
-    @OneToMany(mappedBy = "location")
+    @OneToMany(mappedBy = "location", fetch = FetchType.EAGER)
     private List<Event> events;
 
     public Location(String name, String address, String capacity, String description) {

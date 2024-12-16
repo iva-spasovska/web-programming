@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.lab.repository.impl;
 
+import mk.ukim.finki.wp.lab.model.Category;
 import mk.ukim.finki.wp.lab.model.Event;
 import mk.ukim.finki.wp.lab.model.Location;
 import org.springframework.stereotype.Repository;
@@ -21,7 +22,8 @@ public class InMemoryEventRepository {
             events.add(new Event("Event"+i,
                     "Description"+i,
                     (double) i+1,
-                    locationRepository.findAll().get(i<5 ? i : i-5)));
+                    locationRepository.findAll().get(i<5 ? i : i-5),
+                    new Category("cat")));
         }
     }
 
@@ -39,9 +41,9 @@ public class InMemoryEventRepository {
 
     }
 
-    public Optional<Event> save(String name, String description, Double popularityScore, Location location) {
+    public Optional<Event> save(String name, String description, Double popularityScore, Location location, Category category) {
         events.removeIf(event -> event.getName().equals(name));
-        Event event = new Event(name, description, popularityScore, location);
+        Event event = new Event(name, description, popularityScore, location, category);
         events.add(event);
         return Optional.of(event);
     }
