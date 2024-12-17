@@ -52,7 +52,7 @@
                     <th scope="col">Popularity Score</th>
                     <th scope="col">Location</th>
                     <th scope="col">Category</th>
-                    <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Actions</th>
+                    <th scope="col" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMIN2')">Actions</th>
                 </tr>
                 </thead>
 
@@ -69,18 +69,18 @@
                             ? ${event.getLocation().getName()} : 'No Location'"></td>
                     <td th:text="${event.getCategory() != null}
                             ? ${event.getCategory().getName()} : 'No Category'"></td>
-                    <td sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a th:href="@{/events/edit-form/{id}(id=${event.getId()})}" class="btn btn-info btn-sm">
+                    <td>
+                        <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_ADMIN2')" th:href="@{/events/edit-form/{id}(id=${event.getId()})}" class="btn btn-info btn-sm">
                             Edit
                         </a>
-                        <form th:action="@{/events/delete/{id}(id=${event.getId()})}" method="POST"
+                        <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/events/delete/{id}(id=${event.getId()})}" method="POST"
                               class="d-inline-block">
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger btn-sm">
                                 Delete
                             </button>
                         </form>
-                        <div th:if="${event.isDisabled} == false">
+                        <div sec:authorize="hasRole('ROLE_ADMIN')" th:if="${event.isDisabled} == false">
                             <form th:action="@{/events/increment/{id}(id=${event.getId()})}" method="post">
                                 <button type="submit" class="btn btn-success btn-sm">Increment</button>
                             </form>
@@ -88,7 +88,7 @@
                                 <button type="submit" class="btn btn-danger btn-sm">Decrement</button>
                             </form>
                         </div>
-                        <div th:if="${event.isDisabled} == true"></div>
+                        <div sec:authorize="hasRole('ROLE_ADMIN')" th:if="${event.isDisabled} == true"></div>
                     </td>
                 </tr>
                 </tbody>
