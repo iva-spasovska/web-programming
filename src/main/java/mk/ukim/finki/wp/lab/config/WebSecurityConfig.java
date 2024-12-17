@@ -38,7 +38,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/","events", "/assets/**", "/register")
                         .permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasAnyRole("ADMIN", "ADMIN2")
                         .anyRequest()
                         .authenticated()
                 )
@@ -75,7 +75,12 @@ public class WebSecurityConfig {
                 .password(passwordEncoder.encode("admin"))
                 .roles("ADMIN")
                 .build();
+        UserDetails admin2 = User.builder()
+                .username("admin2")
+                .password(passwordEncoder.encode("admin2"))
+                .roles("ADMIN2")
+                .build();
 
-        return new InMemoryUserDetailsManager(user1, admin);
+        return new InMemoryUserDetailsManager(user1, admin, admin2);
     }
 }

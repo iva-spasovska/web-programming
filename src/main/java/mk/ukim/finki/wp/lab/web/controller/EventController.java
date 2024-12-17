@@ -83,7 +83,7 @@ public class EventController {
     }
 
     @PostMapping("/edit/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('ADMIN2')")
     public String editEvent(@PathVariable Long id,
                             @RequestParam String name,
                             @RequestParam String description,
@@ -111,7 +111,7 @@ public class EventController {
     }
 
     @GetMapping("/edit-form/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('ADMIN2')")
     public String getEditEventForm(@PathVariable Long id, Model model){
         if(this.eventService.findById(id).isPresent()) {
             Event event = this.eventService.findById(id).get();

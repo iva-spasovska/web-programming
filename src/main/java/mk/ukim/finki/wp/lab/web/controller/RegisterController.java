@@ -35,11 +35,10 @@ public class RegisterController {
                            @RequestParam String password,
                            @RequestParam String repeatedPassword,
                            @RequestParam String name,
-                           @RequestParam String surname,
-                           @RequestParam Role role
+                           @RequestParam String surname
     ) {
         try {
-            this.authService.register(username, password, repeatedPassword, name, surname, role);
+            this.authService.register(username, password, repeatedPassword, name, surname);
             return "redirect:/login";
         } catch (PasswordsDoNotMatchException | InvalidArgumentsException ex) {
             return "redirect:/register?error=" + ex.getMessage();
